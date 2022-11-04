@@ -2,31 +2,34 @@ import { useState, useEffect } from "react";
 
 const Game = (props) => {
 
-    const [pokemon, setPokemon] = useState([]);
+    const [pokemonData, setPokemonData] = useState([]);
 
     const shufflePokemon = () => {
-        let temp = pokemon;
+        console.log("pokemon is shuffling....")
+        let temp = [...pokemonData];
         for (let i = temp.length - 1; i >= 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
             var t = temp[i];
             temp[i] = temp[j];
             temp[j] = t;
         }
-        setPokemon(temp);
-        console.log(pokemon);
+        console.log(temp);
+        setPokemonData(temp);
+        console.log(pokemonData);
     }
 
     useEffect(() => {
-        setPokemon(props.data);
+        setPokemonData(props.data);
     }, [props.data])
 
     return (
         <div>
+            {console.log("rendering")}
             {
-                pokemon === 0 ? null :
-                    pokemon.map((curr) => {
+                pokemonData.length === 0 ? null :
+                    pokemonData.map((curr) => {
                         return (
-                            <div onClick={shufflePokemon}>
+                            <div onClick={shufflePokemon} key={curr.id} >
                                 <img src={curr.image} />
                                 <p>{curr.name}</p>
                             </div>

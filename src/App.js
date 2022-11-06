@@ -4,6 +4,7 @@ import Game from './components/game'
 const App = () => {
 
   const [pokemon, setPokemon] = useState([]);
+  const [mount, setMount] = useState(false);
 
   const POKEMON_NUMBER = 16;
 
@@ -27,20 +28,29 @@ const App = () => {
       const pokemon = await response.json();
       const id = pokemon.id;
       const name = pokemon.name;
-      const image = pokemon.sprites.front_default
-      pokemons.push({ id, name, image });
+      const image = pokemon.sprites.front_default;
+      let clicked = false;
+      pokemons.push({ id, name, image, clicked });
     }
     setPokemon(pokemons);
   }
 
+  const ChangeMount = () => {
+    setMount(!mount);
+  }
+
   useEffect(() => {
-    console.log("rendered app");
     fetchPokemmon();
   }, [])
 
+  useEffect(() => {
+    console.log(mount);
+    // fetchPokemmon();
+  }, [mount]);
+
   return (
     <div>
-      < Game data={pokemon} />
+      < Game data={pokemon} mount={ChangeMount} />
     </div>
   )
 };

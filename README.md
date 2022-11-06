@@ -5,3 +5,7 @@ You have to selected one pokemon in this game after that cards will get shuffled
 - React js
 - js
 
+```
+npm i
+npm start
+```

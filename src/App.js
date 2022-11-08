@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, CSSProperties } from "react";
 import Game from './components/game'
+import { PacmanLoader } from "react-spinners";
 
 const App = () => {
 
@@ -45,6 +46,12 @@ const App = () => {
     setHighScore(num);
   }
 
+  const override: CSSProperties = {
+    position: "fixed",
+    left: "40%",
+    top: "40%"
+  };
+
   useEffect(() => {
     setLoading(true);
     fetchPokemmon().then(() => setLoading(false));
@@ -55,12 +62,21 @@ const App = () => {
     fetchPokemmon().then(() => setLoading(false));
   }, [mount]);
 
-  return (loading) ? "Loading..." : (
-    <div>
-      < Game data={pokemon} mount={ChangeMount} highScore={highScore}
-        changeHigh={changeHighScore} />
-    </div>
-  )
+  return (loading) ?
+    <PacmanLoader
+      color={"#FFFB00"}
+      loading={loading}
+      size={100}
+      cssOverride={override}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    />
+    : (
+      <div>
+        < Game data={pokemon} mount={ChangeMount} highScore={highScore}
+          changeHigh={changeHighScore} />
+      </div>
+    )
 };
 
 export default App;

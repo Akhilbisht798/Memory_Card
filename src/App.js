@@ -5,6 +5,8 @@ const App = () => {
 
   const [pokemon, setPokemon] = useState([]);
   const [mount, setMount] = useState(false);
+  const [loading, setLoading] = useState(() => false);
+  const [highScore, setHighScore] = useState(() => 0);
 
   const POKEMON_NUMBER = 16;
 
@@ -39,17 +41,24 @@ const App = () => {
     setMount(!mount);
   }
 
+  const changeHighScore = (num) => {
+    setHighScore(num);
+  }
+
   useEffect(() => {
-    fetchPokemmon();
+    setLoading(true);
+    fetchPokemmon().then(() => setLoading(false));
   }, [])
 
   useEffect(() => {
-    fetchPokemmon();
+    setLoading(true);
+    fetchPokemmon().then(() => setLoading(false));
   }, [mount]);
 
-  return (
+  return (loading) ? "Loading..." : (
     <div>
-      < Game data={pokemon} mount={ChangeMount} />
+      < Game data={pokemon} mount={ChangeMount} highScore={highScore}
+        changeHigh={changeHighScore} />
     </div>
   )
 };

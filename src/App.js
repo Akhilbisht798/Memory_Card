@@ -44,8 +44,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    console.log(mount);
-    // fetchPokemmon();
+    fetchPokemmon();
   }, [mount]);
 
   return (

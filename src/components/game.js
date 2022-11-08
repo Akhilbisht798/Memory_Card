@@ -4,7 +4,7 @@ const Game = (props) => {
 
     const [pokemonData, setPokemonData] = useState([]);
     const [currScore, setcurrScore] = useState(0);
-    const [highScore, setHighScore] = useState(0);
+    const [highScore, setHighScore] = useState(() => 0);
 
     const shufflePokemon = (e) => {
         let temp = [...pokemonData];
@@ -22,11 +22,12 @@ const Game = (props) => {
     const clickChecked = (e) => {
         const index = e.target.dataset.index;
         if (pokemonData[index].clicked) {
-            console.log("game Over");
+            setcurrScore(0);
+            props.mount();
             return;
         }
         setcurrScore(currScore + 1);
-        if (highScore < currScore) setHighScore(currScore);
+        if (highScore < currScore) setHighScore(currScore + 1);
         shufflePokemon(e);
 
     }
@@ -37,8 +38,7 @@ const Game = (props) => {
 
     return (
         <div>
-            Score : {currScore}
-            High Score : {highScore}
+            Score : {currScore} High-Score : {highScore}
             {
                 pokemonData.length === 0 ? null :
                     pokemonData.map((curr, index) => {
@@ -46,7 +46,7 @@ const Game = (props) => {
                             <div onClick={clickChecked}
                                 key={curr.id} data-id={curr.id} data-index={index}
                                 data-clicked={curr.clicked} >
-                                <img src={curr.image} onClick={clickChecked}
+                                <img src={curr.image}
                                     data-id={curr.id} data-index={index} data-clicked={curr.clicked} />
                                 <p>{curr.name}</p>
                             </div>

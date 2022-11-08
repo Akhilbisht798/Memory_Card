@@ -37,21 +37,31 @@ const Game = (props) => {
 
     return (
         <div>
-            Score : {currScore} High-Score : {props.highScore}
-            {
-                pokemonData.length === 0 ? null :
-                    pokemonData.map((curr, index) => {
-                        return (
-                            <div onClick={clickChecked}
-                                key={curr.id} data-id={curr.id} data-index={index}
-                                data-clicked={curr.clicked} className="pokemon-div">
-                                <img src={curr.image}
-                                    data-id={curr.id} data-index={index} data-clicked={curr.clicked} />
-                                <p>{curr.name}</p>
-                            </div>
-                        )
-                    })
-            }
+            <div className="score-board">
+                <div>
+                    <span className="curr-score">Score : {currScore} </span>
+                </div>
+                <div>
+                    <span className="high-score">High-Score : {props.highScore}</span>
+                </div>
+            </div>
+            <div className="pokemons-div">
+                {
+                    pokemonData.length === 0 ? null :
+                        pokemonData.map((curr, index) => {
+                            return (
+                                <div onClick={clickChecked}
+                                    key={curr.id} data-id={curr.id} data-index={index}
+                                    data-clicked={curr.clicked} className="pokemmon-Div">
+                                    <img src={curr.image}
+                                        data-id={curr.id} data-index={index} data-clicked={curr.clicked}
+                                        className="pokemon-photo" />
+                                    <p className="pokemon-name">{curr.name}</p>
+                                </div>
+                            )
+                        })
+                }
+            </div>
         </div>
     )
 }

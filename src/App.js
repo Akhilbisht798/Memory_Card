@@ -66,7 +66,7 @@ const App = () => {
     <PacmanLoader
       color={"#FFFB00"}
       loading={loading}
-      size={100}
+      size={50}
       cssOverride={override}
       aria-label="Loading Spinner"
       data-testid="loader"
